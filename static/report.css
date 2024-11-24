@@ -1,0 +1,76 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #eee;
+}
+
+header h2 {
+    margin: 0;
+}
+
+.user-settings {
+    display: flex;
+    align-items: center;
+}
+
+.user-settings img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.user-settings ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.user-settings ul li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+main {
+    margin-top: 20px;
+}
+
+section {
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+section h3 {
+    margin-bottom: 10px;
+}
+
+.rider-info .image-container {
+    text-align: center;
+
+}
+
+.rider-info .image-container img {
+    width: 150px;
+    height: 150px;
+
+}
+
+.rider-info .details {
+    margin-top: 10px;
+}

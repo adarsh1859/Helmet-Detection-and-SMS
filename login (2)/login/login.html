@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Portal</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Log in</h1>
+        <form name="loginForm" onsubmit="return checkCredentials()">
+
+            <!-- <form action="dashboard.html"> -->
+            <label for="username">Username:</label>
+            <input type="text" name="username" id="username" required>
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" required>
+            <button type="submit">Sign In</button>
+        </form>
+        <script>
+            function checkCredentials() {
+                const predefinedUsername = "adarsh";
+                const predefinedPassword = "adarsh";
+                const enteredUsername = document.getElementById("username").value;
+                const enteredPassword = document.getElementById("password").value;
+
+                // if (enteredUsername === predefinedUsername && enteredPassword === predefinedPassword) {
+                //     alert("Login successful!");
+                //     // You can redirect to a protected page here
+                // } else {
+                //     alert("Invalid username or password.");
+                // }
+
+                // return false; // Prevent form submission
+
+                if (enteredUsername === predefinedUsername && enteredPassword === predefinedPassword) {
+                    // Redirect to dashboard page (client-side redirection)
+                    window.location.href = "dashboard.html";
+                } else {
+                    alert("Invalid username or password.");
+                }
+
+                return false;
+            }
+        </script>
+    </div>
+</body>
+
+</html>
+<!-- 
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Login Form</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+
+<body>
+    <h1>Login</h1>
+    <form name="loginForm" onsubmit="return checkCredentials()">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username">
+        <br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password">
+        <br><br>
+        <button type="submit">Login</button>
+    </form>
+    <script>
+        function checkCredentials() {
+            const predefinedUsername = "your_username";
+            const predefinedPassword = "your_password";
+            const enteredUsername = document.getElementById("username").value;
+            const enteredPassword = document.getElementById("password").value;
+
+            if (enteredUsername === predefinedUsername && enteredPassword === predefinedPassword) {
+                alert("Login successful!");
+                // You can redirect to a protected page here
+            } else {
+                alert("Invalid username or password.");
+            }
+
+            return false; // Prevent form submission
+        }
+    </script>
+</body>
+
+</html> -->

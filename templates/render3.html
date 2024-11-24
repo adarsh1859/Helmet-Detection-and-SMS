@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch Vehicle Details</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <h1>Fetch Vehicle Details</h1>
+    <form id="fetchVehicleForm">
+        <label for="registration_number">Enter Registration Number:</label>
+        <input type="text" id="registration_number" name="registration_number">
+        <button type="submit">Fetch Details</button>
+    </form>
+
+    <div id="vehicleDetails"></div>
+
+    <script>
+        $(document).ready(function () {
+            $('#fetchVehicleForm').submit(function (event) {
+                event.preventDefault();
+                var registrationNumber = $('#registration_number').val();
+                $.ajax({
+                    url: '/fetch_vehicle_details',
+                    type: 'GET',
+                    data: {registration_number: registrationNumber},
+                    success: function (data) {
+                        $('#vehicleDetails').html('<h2>Vehicle Details</h2>' +
+                            '<p><strong>Name:</strong> ' + data.name + '</p>' +
+                            '<p><strong>Phone Number:</strong> ' + data.phone_no + '</p>' +
+                            '<p><strong>Address:</strong> ' + data.address + '</p>' +
+                            '<p><strong>Registration Number:</strong> ' + data.registration_no + '</p>');
+                    },
+                    error: function (xhr, status, error) {
+                        $('#vehicleDetails').html('<p>Error: ' + xhr.responseJSON.error + '</p>');
+                    }
+                });
+            });
+        });
+    </script>
+    {#<!-- <h1>Vehicle Details</h1>
+    <h1>Image List</h1>
+    <h1>Image</h1>
+    <img src="{{ url_for('static', filename='images/' + image_filename) }}" alt="Image">
+    <label for="registration-number">Enter Registration Number:</label>
+    <input type="text" id="registration-number">
+    <button onclick="fetchVehicleDetails()">Search</button>
+    <div id="image-gallery"></div>
+    <div id="vehicle-details"></div>
+     -->
+     #}
+  
+
+</body>
+</html>

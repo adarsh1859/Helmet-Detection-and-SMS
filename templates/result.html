@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Results</title>
+</head>
+<body>
+    <h1>Search Results</h1>
+    {% if matches %}
+        <ul>
+            {% for match in matches %}
+                <li>Matching file: {{ match }}</li>
+                {% if 'Element:' in match %}  <p>Element ID: {{ match.split(' - ')[2].split(':')[1] }}</p>
+                {% else %}
+                    <p>Element Tag: {{ match.split(' - ')[2].split(':')[1] }}</p>  {% endif %}
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No matches found.</p>
+    {% endif %}
+</body>
+</html>

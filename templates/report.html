@@ -1,0 +1,799 @@
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REPORTS</title>
+   
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url("static/report-bg.jpg");
+            background-size: cover;
+            background-position: center;
+            
+        }
+
+        .container {
+            position: relative;
+            padding: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 20px auto;
+            width: 60%;
+            background-color: rgba(0, 0, 0, 0.7); /* Adjust opacity for the background */
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        li {
+            /* background-color: black; */
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        li:last-child {
+            border-bottom: none;
+        }
+
+        a {
+            font-weight: bold;
+            color: #eee;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #007bff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="user-settings">
+                <ul>
+                    <li><a href="/login">LOG-OUT</a></li>
+                    <li><a href="/dashboard">BACK</a></li>
+                </ul>
+            </div>
+        </header>
+        <h1>GENERATED REPORT</h1>
+        <div class="components">
+            <ul>
+                <li><a href="/render" id="component-1">REPORT 1</a></li>
+                <li><a href="/render" id="component-2">REPORT 2</a></li>
+            </ul>
+        </div>
+    </div>
+    <script src="report.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</body>
+
+</html> -->
+
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REPORTS</title>
+   
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("static/report-bg2.jpg");
+            background-size: cover;
+            background-position: center;
+            filter: blur(5px); /* Apply the blur filter to the background image */
+            z-index: -1; /* Ensure the background image is behind other content */
+        }
+
+        .container {
+            position: relative;
+            padding: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 20px auto;
+            width: 60%;
+            background-color: rgba(0, 0, 0, 0.7); /* Adjust opacity for the background */
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1; /* Ensure the ul is above the blurred background */
+        }
+        h1 {
+            text-align: center; /* Align the h1 to the center */
+            color: #000000; /* Set text color to white */
+            margin-top: 50px; /* Add top margin */
+        }
+
+        li {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            font-weight: bold;
+            color: #fff;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        li:last-child {
+            border-bottom: none;
+        }
+        .give{
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            font-weight: bold;
+            color: #fff;
+        }
+        a {
+            font-weight: bold;
+            color: #eee;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #007bff;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+        }
+        li:hover{
+            background-color: #000000;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="user-settings">
+                <ul>
+                    <li class="give" onclick="navigateTo('/')"><a>LOG-OUT</a></li>
+                    <li class="give" onclick="navigateTo('/dashboard')"><a>BACK</a></li>
+
+                
+                </ul>
+            </div>
+        </header>
+        
+    </div>
+    <script>
+        function navigateTo(url) {
+            window.location.href = url; // Redirect to the specified URL
+        }
+    </script>
+
+    
+     <div class="container">
+        <h1>GENERATED REPORT</h1>
+
+         <ul id="images-container"></ul>
+     </div>
+    <script>
+        const imagesContainer = document.getElementById('images-container');
+
+        // Function to fetch and display images alternately from both folders
+        async function fetchAndDisplayImages(folderName1, folderName2, container) {
+            try {
+                const response1 = await fetch(`static/${folderName1}/`);
+                const response2 = await fetch(`static/${folderName2}/`);
+                
+                if (!response1.ok || !response2.ok) {
+                    throw new Error('Failed to fetch images');
+                }
+                
+                const imageFiles1 = await response1.json();
+                const imageFiles2 = await response2.json();
+
+                const maxImages = Math.max(imageFiles1.length, imageFiles2.length);
+
+                for (let i = 0; i < maxImages; i++) {
+                    const listItem = document.createElement('li');
+
+                    const timestamp = document.createElement('span');
+                    timestamp.classList.add('timestamp');
+                    timestamp.textContent = new Date().toLocaleString(); // Generate timestamp
+
+                    const button = document.createElement('button');
+                    button.textContent = `Show Report ${i + 1}`;
+                    button.addEventListener('click', () => {
+                        if (i < imageFiles1.length) {
+                            displayImage(folderName1, imageFiles1[i]);
+                        } else {
+                            displayImage(folderName2, imageFiles2[i]);
+                        }
+                    });
+
+                    listItem.appendChild(timestamp);
+                    listItem.appendChild(button);
+                    container.appendChild(listItem);
+                }
+            } catch (error) {
+                console.error('Error fetching images:', error);
+            }
+        }
+
+        // Function to display selected image on a new page
+        function displayImage(folderName, imageName) {
+            window.location.href = `/image?folder=${folderName}&image=${imageName}`;
+        }
+
+        // Fetch and display images initially
+        fetchAndDisplayImages('riders_pictures', 'number_plates', imagesContainer);
+    </script>
+    <script src="report.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</body>
+
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REPORTS</title>
+   
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("static/report-bg2.jpg");
+            background-size: cover;
+            background-position: center;
+            filter: blur(5px); /* Apply the blur filter to the background image */
+            z-index: -1; /* Ensure the background image is behind other content */
+        }
+
+        .container {
+            position: relative;
+            padding: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 20px auto;
+            width: 60%;
+            background-color: rgba(0, 0, 0, 0.7); /* Adjust opacity for the background */
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1; /* Ensure the ul is above the blurred background */
+        }
+        h1 {
+            text-align: center; /* Align the h1 to the center */
+            color: #000000; /* Set text color to white */
+            margin-top: 50px; /* Add top margin */
+        }
+
+        li {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            font-weight: bold;
+            color: #fff;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        li:last-child {
+            border-bottom: none;
+        }
+        .give{
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            font-weight: bold;
+            color: #fff;
+        }
+        a {
+            font-weight: bold;
+            color: #eee;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #007bff;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+        }
+        li:hover{
+            background-color: #000000;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="user-settings">
+                <ul>
+                    <li class="give" onclick="navigateTo('/')"><a>LOG-OUT</a></li>
+                    <li class="give" onclick="navigateTo('/dashboard')"><a>BACK</a></li>
+
+                    <!-- <li><a href="/login">LOG-OUT</a></li>
+                    <li><a href="/dashboard">BACK</a></li> -->
+                </ul>
+            </div>
+        </header>
+        
+    </div>
+    <script>
+        function navigateTo(url) {
+            window.location.href = url; // Redirect to the specified URL
+        }
+    </script>
+
+    
+     <div class="container">
+        <h1>GENERATED REPORT</h1>
+
+         <ul id="images-container"></ul>
+     </div>
+     <!-- working code -->
+    <!-- <script>
+        const imagesContainer = document.getElementById('images-container');
+
+        // Function to fetch and display images alternately from both folders
+        async function fetchAndDisplayImages(folderName1, folderName2, container) {
+            try {
+                const response1 = await fetch(`static/${folderName1}/`);
+                const response2 = await fetch(`static/${folderName2}/`);
+                
+                if (!response1.ok || !response2.ok) {
+                    throw new Error('Failed to fetch images');
+                }
+                
+                const imageFiles1 = await response1.json();
+                const imageFiles2 = await response2.json();
+
+                const maxImages = Math.max(imageFiles1.length, imageFiles2.length);
+
+                for (let i = 0; i < maxImages; i++) {
+                    const listItem = document.createElement('li');
+
+                    const timestamp = document.createElement('span');
+                    timestamp.classList.add('timestamp');
+                    timestamp.textContent = new Date().toLocaleString(); // Generate timestamp
+
+                    const button = document.createElement('button');
+                    button.textContent = `Show Report ${i + 1}`;
+                    button.addEventListener('click', () => {
+                        if (i < imageFiles1.length) {
+                            displayImage(folderName1, imageFiles1[i]);
+                        } else {
+                            displayImage(folderName2, imageFiles2[i]);
+                        }
+                    });
+
+                    listItem.appendChild(timestamp);
+                    listItem.appendChild(button);
+                    container.appendChild(listItem);
+                }
+            } catch (error) {
+                console.error('Error fetching images:', error);
+            }
+        }
+
+        // Function to display selected image on a new page
+        function displayImage(folderName, imageName) {
+            window.location.href = `/image?folder=${folderName}&image=${imageName}`;
+        }
+
+        // Fetch and display images initially
+        fetchAndDisplayImages('riders_pictures', 'number_plates', imagesContainer);
+    </script> -->
+
+    <!-- working code -->
+    <!-- <script>
+        const imagesContainer = document.getElementById('images-container');
+    
+        // Function to fetch and display images alternately from both folders
+        async function fetchAndDisplayImages(folderName1, folderName2, container) {
+            try {
+                const response1 = await fetch(`static/${folderName1}/`);
+                const response2 = await fetch(`static/${folderName2}/`);
+    
+                if (!response1.ok || !response2.ok) {
+                    throw new Error('Failed to fetch images');
+                }
+    
+                const imageFiles1 = await response1.json();
+                const imageFiles2 = await response2.json();
+    
+                console.log('Images from folder 1:', imageFiles1);
+                console.log('Images from folder 2:', imageFiles2);
+    
+                const maxImages = Math.max(imageFiles1.length, imageFiles2.length);
+    
+                for (let i = 0; i < maxImages; i++) {
+                    const listItem = document.createElement('li');
+    
+                    const timestamp = document.createElement('span');
+                    timestamp.classList.add('timestamp');
+                    timestamp.textContent = new Date().toLocaleString(); // Generate timestamp
+    
+                    const button = document.createElement('button');
+                    button.textContent = `Show Report ${i + 1}`;
+                    button.addEventListener('click', () => {
+                        if (i < imageFiles1.length) {
+                            displayImage(folderName1, imageFiles1[i]);
+                        } else {
+                            displayImage(folderName2, imageFiles2[i - imageFiles1.length]);
+                        }
+                    });
+    
+                    listItem.appendChild(timestamp);
+                    listItem.appendChild(button);
+                    container.appendChild(listItem);
+                }
+            } catch (error) {
+                console.error('Error fetching images:', error);
+            }
+        }
+    
+        // Function to display selected image on a new page
+        function displayImage(folderName, imageName) {
+            window.location.href = `/image?folder=${folderName}&image=${imageName}`;
+        }
+    
+        // Fetch and display images initially
+        fetchAndDisplayImages('riders_pictures', 'number_plates', imagesContainer);
+    </script> -->
+
+
+    <!-- display file from both folder but it shows file name  -->
+    <!-- <script>
+        function navigateTo(url) {
+            window.location.href = url; // Redirect to the specified URL
+        }
+
+        const imagesContainer = document.getElementById('images-container');
+
+        async function fetchAndDisplayImages(folderName, container) {
+            try {
+                const response = await fetch(`static/${folderName}/`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch images');
+                }
+                const imageFiles = await response.json();
+                console.log(`Images from ${folderName} folder:`, imageFiles);
+                imageFiles.forEach(image => {
+                    const listItem = document.createElement('li');
+                    const timestamp = document.createElement('span');
+                    timestamp.textContent = new Date().toLocaleString();
+                    const button = document.createElement('button');
+                    button.textContent = `Show Report ${image}`;
+                    button.addEventListener('click', () => {
+                        displayImage(folderName, image);
+                    });
+                    listItem.appendChild(timestamp);
+                    listItem.appendChild(button);
+                    container.appendChild(listItem);
+                });
+            } catch (error) {
+                console.error('Error fetching images:', error);
+            }
+        }
+
+        function displayImage(folderName, imageName) {
+            window.location.href = `/image?folder=${folderName}&image=${imageName}`;
+        }
+
+        // Fetch and display images from both folders separately
+        fetchAndDisplayImages('riders_pictures', imagesContainer);
+        fetchAndDisplayImages('number_plates', imagesContainer);
+    </script>
+    -->
+
+    <!-- displays both image but in single page -->
+    <script>
+    
+    function navigateTo(url) {
+        window.location.href = url; // Redirect to the specified URL
+    }
+    
+    const imagesContainer = document.getElementById('images-container');
+    
+    async function fetchAndDisplayImages(folderName, container) {
+        try {
+            const response = await fetch(`static/${folderName}/`);
+            if (!response.ok) {
+                throw new Error('Failed to fetch images');
+            }
+            const imageFiles = await response.json();
+            console.log(`Images from ${folderName} folder:`, imageFiles);
+    
+            // Fetch image files from number_plates folder
+            const numberPlatesResponse = await fetch(`static/number_plates/`);
+            if (!numberPlatesResponse.ok) {
+                throw new Error('Failed to fetch images from number_plates folder');
+            }
+            const numberPlatesFiles = await numberPlatesResponse.json();
+            console.log(`Images from number_plates folder:`, numberPlatesFiles);
+    
+            // Map image files from number_plates folder to their first 10 digits
+            const numberPlatesMap = {};
+            numberPlatesFiles.forEach(file => {
+                const firstTenDigits = file.slice(0, 10);
+                if (!numberPlatesMap[firstTenDigits]) {
+                    numberPlatesMap[firstTenDigits] = [];
+                }
+                numberPlatesMap[firstTenDigits].push(file);
+            });
+    
+            // Count of reports with matching number plates
+            let numMatches = 0;
+    
+            // Iterate through each image in riders_pictures folder
+            for (const image of imageFiles) {
+                const firstTenDigits = image.slice(0, 10);
+                if (numberPlatesMap[firstTenDigits]) {
+                    // If there are matching files in number_plates folder, display the report
+                    const listItem = document.createElement('li');
+                    const timestamp = document.createElement('span');
+                    timestamp.textContent = new Date().toLocaleString();
+                    const button = document.createElement('button');
+                    button.textContent = `Show Report ${image}`;
+                    button.addEventListener('click', () => {
+                        displayImage(folderName, image);
+                    });
+                    listItem.appendChild(timestamp);
+                    listItem.appendChild(button);
+                    container.appendChild(listItem);
+                    numMatches++;
+                }
+                if (numMatches >= 10) {
+                    // Break after 10 matches
+                    break;
+                }
+            }
+    
+            // Display the number of reports
+            // const reportCountContainer = document.createElement('div');
+            // reportCountContainer.textContent = `Number of reports with matching number plates: ${numMatches}`;
+            // container.appendChild(reportCountContainer);
+        } catch (error) {
+            console.error('Error fetching images:', error);
+        }
+    }
+    
+    function displayImage(folderName, imageFileName) {
+        navigateTo(`static/${folderName}/${imageFileName}`);
+    }
+    
+    // Example usage
+    // fetchAndDisplayImages('riders_pictures', imagesContainer);
+    fetchAndDisplayImages('number_plates', imagesContainer);
+    
+
+
+
+        //working code apr24 20:06
+        // function navigateTo(url) {
+        //     window.location.href = url; // Redirect to the specified URL
+        // }
+    
+        // const imagesContainer = document.getElementById('images-container');
+    
+        // async function fetchAndDisplayImages(folderName, container) {
+        //     try {
+        //         const response = await fetch(`static/${folderName}/`);
+        //         if (!response.ok) {
+        //             throw new Error('Failed to fetch images');
+        //         }
+        //         const imageFiles = await response.json();
+        //         console.log(`Images from ${folderName} folder:`, imageFiles);
+        //         imageFiles.forEach(async image => {
+        //             const listItem = document.createElement('li');
+        //             const timestamp = document.createElement('span');
+        //             timestamp.textContent = new Date().toLocaleString();
+        //             const button = document.createElement('button');
+        //             button.textContent = `Show Report ${image}`;
+        //             button.addEventListener('click', () => {
+        //                 displayImage(folderName, image);
+        //             });
+        //             listItem.appendChild(timestamp);
+        //             listItem.appendChild(button);
+        //             container.appendChild(listItem);
+        //             // Check if the image file from riders_pictures matches any file in number_plates
+        //             const matchFileName = await findMatchingFileName(image, 'number_plates');
+        //             if (matchFileName) {
+        //                 // If a match is found, display both images side by side
+        //                 displayImagesSideBySide(folderName, image, 'number_plates', matchFileName);
+        //             }
+        //         });
+        //     } catch (error) {
+        //         console.error('Error fetching images:', error);
+        //     }
+        // }
+     
+
+        //both image fetch
+        // async function findMatchingFileName(imageName, folderName) {
+        //     try {
+        //         const response = await fetch(`static/${folderName}/`);
+        //         if (!response.ok) {
+        //             throw new Error('Failed to fetch images');
+        //         }
+        //         const imageFiles = await response.json();
+        //         return imageFiles.find(file => file.substring(0, 10) === imageName.substring(0, 10));
+        //     } catch (error) {
+        //         console.error('Error fetching images:', error);
+        //     }
+        // }
+    
+        // async function displayImagesSideBySide(folderName1, imageName1, folderName2, imageName2) {
+        //     const image1 = document.createElement('img');
+        //     const image2 = document.createElement('img');
+        //     image1.src = `static/${folderName1}/${imageName1}`;
+        //     image2.src = `static/${folderName2}/${imageName2}`;
+        //     const container = document.createElement('div');
+        //     container.classList.add('image-container');
+        //     container.appendChild(image1);
+        //     container.appendChild(image2);
+        //     imagesContainer.appendChild(container);
+        // }
+    
+        function displayImage(folderName, imageName) {
+            // window.location.href = `/image?folder=${folderName}&image=${imageName}`;
+            window.location.href = `/image?images=${imageName}`;
+        }
+    
+        // Fetch and display images from riders_pictures folder
+        // fetchAndDisplayImages('riders_pictures', imagesContainer);
+    </script>
+    <!-- <script>
+        function navigateTo(url) {
+            window.location.href = url; // Redirect to the specified URL
+        }
+    
+        const imagesContainer = document.getElementById('images-container');
+    
+        async function fetchAndDisplayImages(folderName, container) {
+            try {
+                const response = await fetch(`static/${folderName}/`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch images');
+                }
+                const imageFiles = await response.json();
+                console.log(`Images from ${folderName} folder:`, imageFiles);
+                imageFiles.forEach(async image => {
+                    const listItem = document.createElement('li');
+                    const timestamp = document.createElement('span');
+                    timestamp.textContent = new Date().toLocaleString();
+                    const button = document.createElement('button');
+                    button.textContent = `Show Report ${image}`;
+                    button.addEventListener('click', async () => {
+                        const matchFileName = await findMatchingFileName(image, 'number_plates');
+                        if (matchFileName) {
+                            // If a match is found, display both images within the report
+                            displayImagesWithinReport(folderName, image, 'number_plates', matchFileName, listItem);
+                        } else {
+                            // If no match is found, display only the image from riders_pictures folder
+                            displayImage(folderName, image);
+                        }
+                    });
+                    listItem.appendChild(timestamp);
+                    listItem.appendChild(button);
+                    container.appendChild(listItem);
+                });
+            } catch (error) {
+                console.error('Error fetching images:', error);
+            }
+        }
+    
+        async function findMatchingFileName(imageName, folderName) {
+            try {
+                const response = await fetch(`static/${folderName}/`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch images');
+                }
+                const imageFiles = await response.json();
+                return imageFiles.find(file => file.substring(0, 10) === imageName.substring(0, 10));
+            } catch (error) {
+                console.error('Error fetching images:', error);
+            }
+        }
+    
+        async function displayImagesWithinReport(folderName1, imageName1, folderName2, imageName2, listItem) {
+            const image1 = document.createElement('img');
+            const image2 = document.createElement('img');
+            image1.src = `static/${folderName1}/${imageName1}`;
+            image2.src = `static/${folderName2}/${imageName2}`;
+            const container = document.createElement('div');
+            container.classList.add('images-within-report');
+            container.appendChild(image1);
+            container.appendChild(image2);
+            listItem.appendChild(container);
+        }
+    
+        function displayImage(folderName, imageName) {
+            window.location.href = `/image?folder=${folderName}&image=${imageName}`;
+        }
+    
+        // Fetch and display images from riders_pictures folder
+        fetchAndDisplayImages('riders_pictures', imagesContainer);
+    </script> -->
+    
+    
+</body>
+
+</html>

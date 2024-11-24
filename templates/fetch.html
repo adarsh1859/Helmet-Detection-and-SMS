@@ -1,0 +1,377 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Viewer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 20px auto;
+            width: 60%;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        li {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        li:last-child {
+            border-bottom: none;
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .timestamp {
+            font-size: 12px;
+            color: #666;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Image Viewer</h1>
+    <h2>Riders Pictures</h2>
+    <ul id="riders-button-container"></ul>
+    <h2>Number Plates</h2>
+    <ul id="plates-button-container"></ul>
+
+    <script>
+        const ridersButtonContainer = document.getElementById('riders-button-container');
+        const platesButtonContainer = document.getElementById('plates-button-container');
+        let ridersImageFiles; // Declare ridersImageFiles variable globally
+        let platesImageFiles; // Declare platesImageFiles variable globally
+
+        // Function to fetch and display riders pictures
+        async function fetchAndDisplayRidersImages() {
+            try {
+                const response = await fetch('static/riders_pictures/');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch riders images');
+                }
+                ridersImageFiles = await response.json(); // Assign value to global variable
+                
+                ridersImageFiles.forEach((imageName, index) => {
+                    const listItem = document.createElement('li');
+
+                    const timestamp = document.createElement('span');
+                    timestamp.classList.add('timestamp');
+                    timestamp.textContent = new Date().toLocaleString(); // Generate timestamp
+
+                    const button = document.createElement('button');
+                    button.textContent = `Show Image ${index + 1}`;
+                    button.addEventListener('click', () => {
+                        displayImage('riders_pictures', imageName);
+                    });
+
+                    listItem.appendChild(timestamp);
+                    listItem.appendChild(button);
+                    ridersButtonContainer.appendChild(listItem);
+                });
+            } catch (error) {
+                console.error('Error fetching riders images:', error);
+            }
+        }
+
+        // Function to fetch and display number plates
+        async function fetchAndDisplayPlatesImages() {
+            try {
+                const response = await fetch('static/number_plates/');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch plates images');
+                }
+                platesImageFiles = await response.json(); // Assign value to global variable
+                
+                platesImageFiles.forEach((imageName, index) => {
+                    const listItem = document.createElement('li');
+
+                    const timestamp = document.createElement('span');
+                    timestamp.classList.add('timestamp');
+                    timestamp.textContent = new Date().toLocaleString(); // Generate timestamp
+
+                    const button = document.createElement('button');
+                    button.textContent = `Show Image ${index + 1}`;
+                    button.addEventListener('click', () => {
+                        displayImage('number_plates', imageName);
+                    });
+
+                    listItem.appendChild(timestamp);
+                    listItem.appendChild(button);
+                    platesButtonContainer.appendChild(listItem);
+                });
+            } catch (error) {
+                console.error('Error fetching plates images:', error);
+            }
+        }
+
+        // Function to display selected image on a new page
+        function displayImage(folderName, imageName) {
+            window.location.href = `/image?folder=${folderName}&image=${imageName}`;
+        }
+
+        // Fetch and display riders images initially
+        fetchAndDisplayRidersImages();
+        // Fetch and display plates images initially
+        fetchAndDisplayPlatesImages();
+    </script>
+</body>
+</html> -->
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Viewer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 20px auto;
+            width: 60%;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        li {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        li:last-child {
+            border-bottom: none;
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .timestamp {
+            font-size: 12px;
+            color: #666;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Image Viewer</h1>
+    <ul id="button-container"></ul>
+
+    <script>
+        const buttonContainer = document.getElementById('button-container');
+        let ridersImageFiles; // Declare ridersImageFiles variable globally
+        let platesImageFiles; // Declare platesImageFiles variable globally
+
+        // Function to fetch and display images
+        async function fetchAndDisplayImages(folderName, container) {
+            try {
+                const response = await fetch(`static/${folderName}/`);
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch ${folderName} images`);
+                }
+                const imageFiles = await response.json(); // Assign value to local variable
+                
+                imageFiles.forEach((imageName, index) => {
+                    const listItem = document.createElement('li');
+
+                    const timestamp = document.createElement('span');
+                    timestamp.classList.add('timestamp');
+                    timestamp.textContent = new Date().toLocaleString(); // Generate timestamp
+
+                    const button = document.createElement('button');
+                    button.textContent = `Show Image ${index + 1}`;
+                    button.addEventListener('click', () => {
+                        displayImage(folderName, imageName);
+                    });
+
+                    listItem.appendChild(timestamp);
+                    listItem.appendChild(button);
+                    container.appendChild(listItem);
+                });
+            } catch (error) {
+                console.error(`Error fetching ${folderName} images:`, error);
+            }
+        }
+
+        // Function to display selected image on a new page
+        function displayImage(folderName, imageName) {
+            window.location.href = `/image?folder=${folderName}&image=${imageName}`;
+        }
+
+        // Fetch and display riders images initially
+        fetchAndDisplayImages('riders_pictures', buttonContainer);
+        // Fetch and display plates images initially
+        fetchAndDisplayImages('number_plates', buttonContainer);
+    </script>
+</body>
+</html>
+ -->
+
+
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Image Viewer</title>
+     <style>
+         body {
+             font-family: Arial, sans-serif;
+             margin: 0;
+             padding: 0;
+             background-color: #cccccc;
+         }
+         h1 {
+             text-align: center;
+             margin-top: 50px;
+             color: #333;
+         }
+         .container {
+             display: flex;
+             justify-content: space-around;
+             margin-top: 20px;
+         }
+         ul {
+             list-style-type: none;
+             padding: 0;
+             margin: 0;
+             width: 40%;
+             background-color: #fff;
+             border-radius: 5px;
+             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+         }
+         li {
+             padding: 20px;
+             border-bottom: 1px solid #eee;
+         }
+         li:last-child {
+             border-bottom: none;
+         }
+         button {
+             background-color: #007bff;
+             color: #fff;
+             border: none;
+             padding: 10px 20px;
+             border-radius: 5px;
+             cursor: pointer;
+             transition: background-color 0.3s ease;
+         }
+         button:hover {
+             background-color: #0056b3;
+         }
+         .timestamp {
+             font-size: 12px;
+             color: #666;
+             margin-right: 10px;
+         }
+         img {
+             max-width: 100%;
+             height: auto;
+             display: block;
+             margin: 0 auto;
+             margin-top: 20px;
+         }
+     </style>
+ </head>
+ <body>
+     <h1>CAPTURED IMAGE</h1>
+     <div class="container">
+         <ul id="images-container"></ul>
+     </div>
+ 
+     <script>
+         const imagesContainer = document.getElementById('images-container');
+ 
+         // Function to fetch and display images alternately from both folders
+         async function fetchAndDisplayImages(folderName1, folderName2, container) {
+             try {
+                 const response1 = await fetch(`static/${folderName1}/`);
+                 const response2 = await fetch(`static/${folderName2}/`);
+                 
+                 if (!response1.ok || !response2.ok) {
+                     throw new Error('Failed to fetch images');
+                 }
+                 
+                 const imageFiles1 = await response1.json();
+                 const imageFiles2 = await response2.json();
+ 
+                 const maxImages = Math.max(imageFiles1.length, imageFiles2.length);
+ 
+                 for (let i = 0; i < maxImages; i++) {
+                     const listItem = document.createElement('li');
+ 
+                     const timestamp = document.createElement('span');
+                     timestamp.classList.add('timestamp');
+                     timestamp.textContent = new Date().toLocaleString(); // Generate timestamp
+ 
+                     const button = document.createElement('button');
+                     button.textContent = `Show Image ${i + 1}`;
+                     button.addEventListener('click', () => {
+                         if (i < imageFiles1.length) {
+                             displayImage(folderName1, imageFiles1[i]);
+                         } else {
+                             displayImage(folderName2, imageFiles2[i]);
+                         }
+                     });
+ 
+                     listItem.appendChild(timestamp);
+                     listItem.appendChild(button);
+                     container.appendChild(listItem);
+                 }
+             } catch (error) {
+                 console.error('Error fetching images:', error);
+             }
+         }
+ 
+         // Function to display selected image on a new page
+         function displayImage(folderName, imageName) {
+             window.location.href = `/image?folder=${folderName}&image=${imageName}`;
+         }
+ 
+         // Fetch and display images initially
+         fetchAndDisplayImages('riders_pictures', 'number_plates', imagesContainer);
+     </script>
+ </body>
+ </html>
+ 
+
+

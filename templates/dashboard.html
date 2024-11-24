@@ -1,0 +1,212 @@
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Machine Learning Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            min-height: 100vh; /* Ensure the body takes up at least the full viewport height */
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%; /* Cover the entire width of the viewport */
+            height: 100%; /* Cover the entire height of the viewport */
+            background-image: url("static/cctv-ng.jpg");
+            background-size: cover;
+            background-position: center;
+            filter: blur(4px); /* Apply the blur filter to the background image */
+            z-index: -1; /* Ensure the background is behind other content */
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            padding: 20px; /* Add padding to the container */
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+            color: #ffffff;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 20px auto;
+            width: 60%;
+            background-color: rgba(0, 0, 0, 0.7); /* Adjust opacity for the background */
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1; /* Ensure the ul is above the blur overlay */
+        }
+
+        li {
+            padding: 20px;
+            color: #ffffff;
+            border-bottom: 1px solid #ffffff;
+        
+        }
+        li:hover{
+            background-color: rgb(0, 0, 0);
+        }
+        li:last-child {
+            border-bottom: none;
+        }
+
+        a {
+            text-decoration: none;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        a:hover {
+            color: #007bff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>HELMET DETECTION DASHBOARD</h1>
+        <nav>
+            <ul>
+                <li><a href="/index">UPLOAD VIDEO</a></li>
+                <li><a href="/report">REPORTS</a></li>
+                <li><a>HISTORY</a></li>
+            </ul>
+        </nav>
+        <div class="data-section">
+        </div>
+    </div>
+    <div class="user-settings">
+        <ul>
+            <li><a href="/">BACK</a></li>
+            <li></li>
+        </ul>
+    </div>
+</body>
+
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Machine Learning Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            min-height: 100vh; /* Ensure the body takes up at least the full viewport height */
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%; /* Cover the entire width of the viewport */
+            height: 100%; /* Cover the entire height of the viewport */
+            background-image: url("static/cctv-ng.jpg");
+            background-size: cover;
+            background-position: center;
+            filter: blur(4px); /* Apply the blur filter to the background image */
+            z-index: -1; /* Ensure the background is behind other content */
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            padding: 20px; /* Add padding to the container */
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+            color: #ffffff;
+        }
+
+        ul {
+            /* text-align: center; */
+            list-style-type: none;
+            padding: 0;
+            margin: 20px auto;
+            width: 60%;
+            background-color: rgba(0, 0, 0, 0.7); /* Adjust opacity for the background */
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1; /* Ensure the ul is above the blur overlay */
+        }
+
+        li {
+            padding: 20px;
+            color: #ffffff;
+            border-bottom: 1px solid #ffffff;
+            cursor: pointer; /* Change cursor to pointer to indicate clickable element */
+        }
+        li:hover{
+            background-color: rgb(0, 0, 0);
+        }
+        li:last-child {
+            border-bottom: none;
+        }
+
+        a {
+            text-decoration: none;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        a:hover {
+            color: #000000;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>HELMET DETECTION DASHBOARD</h1>
+        <nav>
+            <ul>
+                <li onclick="navigateTo('/index')"><a>UPLOAD VIDEO</a></li>
+                <li onclick="navigateTo('/report')"><a>REPORTS</a></li>
+                <!-- <li onclick="navigateTo('/history')"><a>HISTORY</a></li> -->
+            </ul>
+        </nav>
+        <div class="data-section">
+            <!-- Your content here -->
+        </div>
+    </div>
+    <div class="user-settings">
+        <ul>
+            <li onclick="navigateTo('/')"><a>BACK</a></li>
+            <!-- <li></li> -->
+        </ul>
+    </div>
+
+    <script>
+        function navigateTo(url) {
+            window.location.href = url; // Redirect to the specified URL
+        }
+    </script>
+</body>
+
+</html>
