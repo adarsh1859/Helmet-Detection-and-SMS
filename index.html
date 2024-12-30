@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Processing</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            /* background-color: #cccccc; */
+            position: relative;
+        }
+
+        .blur-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("static/render.png");
+            background-size: cover;
+            background-position: center;
+            filter: blur(6px);
+            z-index: -1;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+            color: #ffffff;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.7); /* Adjust opacity as needed */
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        input[type="file"] {
+            margin-bottom: 20px;
+        }
+
+        button {
+            font-weight: bold;
+            font-size: medium;
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #00d836;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font: bold;
+            align-items: center;
+            justify-content: center;
+        }
+
+        button:hover {
+            background-color: #004e10;
+        }
+
+        /* a {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            display: block;
+            font-weight: bold;
+            font-size: medium;
+            width: 96%;
+            margin: 0 auto; 
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+        
+        }
+
+        a:hover {
+            background-color: #0056b3;
+        } */
+        a {
+    display: block;
+    font-weight: bold;
+    font-size: medium;
+    width: 96%; /* Adjust width to fit content */
+    margin: 0 auto; /* Center horizontally */
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none; /* Remove underline */
+    text-align: center; /* Align text to center */
+}
+
+a:hover {
+    background-color: #0056b3;
+}
+        .checkbox-label {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="blur-overlay"></div> 
+    <h1>Video Processing</h1>
+    <form id="videoForm" enctype="multipart/form-data">
+        <label for="videoSource">Video Source:</label>
+        <input type="file" id="videoSource" name="videoSource" accept="video/*">
+        <hr>
+        
+        <!-- <label for="saveVideo">Save Video:</label>
+        <input type="checkbox" id="saveVideo" name="saveVideo">
+        <hr> -->
+        
+        <label for="showVideo">Show Video:</label>
+        <input type="checkbox" id="showVideo" name="showVideo" checked>
+        <hr>
+        
+        <label for="saveImg">Save Image:</label>
+        <input type="checkbox" id="saveImg" name="saveImg" checked>
+        <hr>
+
+        <button type="submit">START PROCESSING</button>
+        <hr>
+        <a href="/dashboard">BACK</a>
+        <hr>
+    </form>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
+
+<!-- 
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Processing</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            /* background-color: #cccccc; */
+            position: relative;
+        }
+
+        .blur-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("static/render.png");
+            background-size: cover;
+            background-position: center;
+            filter: blur(6px);
+            z-index: -1;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+            color: #fff;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.7); /* Adjust opacity as needed */
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #fff;
+            cursor: pointer; /* Add cursor pointer to labels */
+        }
+
+        input[type="file"] {
+            margin-bottom: 20px;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font: bold;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        a {
+            display: block;
+            width: 90%; /* Adjust width to fit content */
+            margin: 0 auto; /* Center horizontally */
+            padding: 10px;
+            background-color: #000000;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none; /* Remove underline */
+        }
+
+        a:hover {
+            background-color: #0056b3;
+        }
+        
+        .checkbox-label {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="blur-overlay"></div> 
+    <h1>Video Processing</h1>
+    <form id="videoForm" enctype="multipart/form-data">
+        <label for="videoSource" onclick="clickInput('videoSource')">Video Source:</label>
+        <input type="file" id="videoSource" name="videoSource" accept="video/*">
+        <hr>
+        
+        <label class="checkbox-label" for="saveVideo" onclick="clickCheckbox('saveVideo')">Save Video:</label>
+        <input type="checkbox" id="saveVideo" name="saveVideo">
+        <hr>
+        
+        <label class="checkbox-label" for="showVideo" onclick="clickCheckbox('showVideo')">Show Video:</label>
+        <input type="checkbox" id="showVideo" name="showVideo" checked>
+        <hr>
+        
+        <label class="checkbox-label" for="saveImg" onclick="clickCheckbox('saveImg')">Save Image:</label>
+        <input type="checkbox" id="saveImg" name="saveImg" checked>
+        <hr>
+
+        <button type="submit">START PROCESSING</button>
+        <hr>
+        <a href="/dashboard">BACK</a>
+        <hr>
+    </form>
+
+    <script>
+        // Function to trigger click on file input element
+        function clickInput(inputId) {
+            document.getElementById(inputId).click();
+        }
+
+        // Function to toggle checkbox when its label is clicked
+        function clickCheckbox(checkboxId) {
+            const checkbox = document.getElementById(checkboxId);
+            checkbox.checked = !checkbox.checked;
+        }
+
+        function updateFileName(inputId) {
+            const input = document.getElementById(inputId);
+            const fileName = input.files[0].name;
+            const label = document.querySelector(`label[for='${inputId}']`);
+            label.textContent = `File: ${fileName}`;
+            label.style.color = 'white'; // Change color to white
+        }
+    </script>
+</body>
+</html> -->
